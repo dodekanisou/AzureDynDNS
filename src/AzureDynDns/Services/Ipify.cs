@@ -13,10 +13,8 @@ namespace AzureDynDns.Services
         private readonly ILogger<IIpify> logger;
         private readonly Uri serviceUri;
 
-        public Ipify(
-            IpifyConfiguration config,
-            IHttpClientFactory httpFactory,
-            ILogger<IIpify> logger)
+        public Ipify(IpifyConfiguration config, IHttpClientFactory httpFactory,
+                     ILogger<IIpify> logger)
         {
             // Use default public service if not specified otherwise
             if (string.IsNullOrWhiteSpace(config.IpifyServiceAddress))
@@ -33,18 +31,24 @@ namespace AzureDynDns.Services
         {
             using (var client = clientFactory.CreateClient())
             {
-                using (HttpResponseMessage response = await client.GetAsync(serviceUri).ConfigureAwait(false))
+                using (HttpResponseMessage response =
+                          await client.GetAsync(serviceUri).ConfigureAwait(false))
                 {
                     if (response.IsSuccessStatusCode)
                     {
-                        var ip = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                        var ip = await response.Content.ReadAsStringAsync().ConfigureAwait(
+                            false);
                         logger.LogInformation("Retrieved public IP {publicIP}", ip);
                         return ip;
                     }
                     else
                     {
-                        string errorMessage = await response.SafeReadStringContentsAsync().ConfigureAwait(false);
-                        logger.LogError("Failed to invoke {apiUrl}. Status code {statusCode}. Error message {errorMessage}", serviceUri, response.StatusCode, errorMessage);
+                        string errorMessage =
+                            await response.SafeReadStringContentsAsync().ConfigureAwait(
+                                false);
+                        logger.LogError(
+                            "Failed to invoke {apiUrl}. Status code {statusCode}. Error message {errorMessage}",
+                            serviceUri, response.StatusCode, errorMessage);
                         return null;
                     }
                 }
