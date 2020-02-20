@@ -1,7 +1,7 @@
 # AzureDynDNS
 An Azure based DynDNS alternative. 
 
-Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .net core 3.1 console application retrieves the public IP that the device has. The goes into AzureDNS and updates the A record in the Azure DNS service registered in the configuration.
+Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .net core 3.1 console application retrieves the public IP that the device has. Using that IP, the daemon updates the A record in the Azure DNS service registered in the configuration.
 
 ## Setup instructions
 
