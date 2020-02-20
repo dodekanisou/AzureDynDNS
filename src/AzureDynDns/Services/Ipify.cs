@@ -44,7 +44,7 @@ namespace AzureDynDns.Services
                     else
                     {
                         string errorMessage = await response.SafeReadStringContentsAsync().ConfigureAwait(false);
-                        logger.LogError("Failed to invoke {apiUrl}. Status code {statusCode}. Error message {errorMessage}", serviceUri, response.StatusCode);
+                        logger.LogError("Failed to invoke {apiUrl}. Status code {statusCode}. Error message {errorMessage}", serviceUri, response.StatusCode, errorMessage);
                         return null;
                     }
                 }
