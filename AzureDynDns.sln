@@ -7,10 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDynDns", "src\AzureDyn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9D3CC773-1616-4CCE-8A08-C5507EEAAE28}"
 	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDynDNS.Tests", "src\AzureDynDNS.Tests\AzureDynDNS.Tests.csproj", "{AED65B9E-4608-4BA9-9F71-73924891DD6D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDynDNS.Tests", "src\AzureDynDNS.Tests\AzureDynDNS.Tests.csproj", "{AED65B9E-4608-4BA9-9F71-73924891DD6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
