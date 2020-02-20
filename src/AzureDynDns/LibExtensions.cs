@@ -12,7 +12,6 @@ namespace AzureDynDns
 {
     public static class LibExtensions
     {
-
         public static IServiceCollection RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
             // Register the AzureDnsConfiguration object
@@ -40,7 +39,6 @@ namespace AzureDynDns
 
             return services;
         }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "Unsure of what exceptions may be thrown at this point")]
         public static async Task<string> SafeReadStringContentsAsync(this HttpResponseMessage responseMessage)
