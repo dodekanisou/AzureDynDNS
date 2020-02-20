@@ -18,7 +18,7 @@ namespace AzureDynDns.Services
             IHttpClientFactory httpFactory,
             ILogger<IIpify> logger)
         {
-            // Set public service if not specified otherwise
+            // Use default public service if not specified otherwise
             if (string.IsNullOrWhiteSpace(config.IpifyServiceAddress))
             {
                 config.IpifyServiceAddress = "https://api.ipify.org";
