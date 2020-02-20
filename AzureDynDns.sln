@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29728.190
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDynDns", "src\AzureDynDns\AzureDynDns.csproj", "{0D479662-5178-4ECC-93CC-A4E537047EC7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9D3CC773-1616-4CCE-8A08-C5507EEAAE28}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureDynDNS.Tests", "src\AzureDynDNS.Tests\AzureDynDNS.Tests.csproj", "{AED65B9E-4608-4BA9-9F71-73924891DD6D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D479662-5178-4ECC-93CC-A4E537047EC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D479662-5178-4ECC-93CC-A4E537047EC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D479662-5178-4ECC-93CC-A4E537047EC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D479662-5178-4ECC-93CC-A4E537047EC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AED65B9E-4608-4BA9-9F71-73924891DD6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AED65B9E-4608-4BA9-9F71-73924891DD6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AED65B9E-4608-4BA9-9F71-73924891DD6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AED65B9E-4608-4BA9-9F71-73924891DD6D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {168AF0D2-2C19-4510-A206-FBE213A5C8E6}
+	EndGlobalSection
+EndGlobal
