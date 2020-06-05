@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
-namespace AzureDynDns.Models
+﻿namespace AzureDynDns.Services.AzureDns
 {
     public class AzureDnsConfiguration
     {

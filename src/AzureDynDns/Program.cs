@@ -32,7 +32,7 @@ namespace AzureDynDns
                                       })
                                       .BuildServiceProvider();
 
-            var updateService = serviceProvider.GetService<IAzureDynDnsService>();
+            var updateService = serviceProvider.GetService<IDynDnsService>();
             var ip = updateService.UpdateDynamicDnsRecord().GetAwaiter().GetResult();
             Console.WriteLine($"Assigned IP {ip}");
         }

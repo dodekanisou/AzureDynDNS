@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using AzureDynDns.Models;
 using Microsoft.Azure.Management.Dns;
 using Microsoft.Azure.Management.Dns.Models;
-using Microsoft.Rest;
 using Microsoft.Rest.Azure.Authentication;
 
-namespace AzureDynDns.Services
+namespace AzureDynDns.Services.AzureDns
 {
-    public class AzureDnsService : IAzureDnsService
+    /// <summary>
+    /// An Azure DNS client wrapper to expose management operations.
+    /// </summary>
+    public class AzureDnsService : IDnsService
     {
         private readonly AzureDnsConfiguration config;
 

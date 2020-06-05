@@ -1,9 +1,7 @@
-﻿using AzureDynDns.Models;
-using AzureDynDns.Services;
+﻿using AzureDynDns.Services;
+using AzureDynDns.Services.Ipify;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +14,7 @@ namespace AzureDynDNS.Tests.Unit
         private const string IP_TO_CHECK = "10.0.0.1";
         private readonly HttpClient failedAttempt;
         private readonly HttpClient successfulAttempt;
-        private readonly ILogger<IIpify> logger;
+        private readonly ILogger<IIpProvider> logger;
         private readonly IpifyConfiguration config;
 
         public IpifyTests()
@@ -34,7 +32,7 @@ namespace AzureDynDNS.Tests.Unit
                 Content = new StringContent(IP_TO_CHECK, Encoding.UTF8, "text/plain")
             }));
 
-            logger = new Mock<ILogger<IIpify>>().Object;
+            logger = new Mock<ILogger<IIpProvider>>().Object;
             config = new IpifyConfiguration();
         }
 
@@ -44,10 +42,10 @@ namespace AzureDynDNS.Tests.Unit
             // Prepare - The service
             var httpClientFactory = new Mock<IHttpClientFactory>();
             httpClientFactory.Setup(i => i.CreateClient(It.IsAny<string>())).Returns(successfulAttempt);
-            var service = new Ipify(config, httpClientFactory.Object, logger);
+            var service = new IpifyService(config, httpClientFactory.Object, logger);
 
             // Act - Get the IP
-            var ip = await service.GetPublicIP();
+            var ip = await service.GetIP();
 
             // Assert
             Assert.Equal(IP_TO_CHECK, ip);
@@ -59,10 +57,10 @@ namespace AzureDynDNS.Tests.Unit
             // Prepare - The service
             var httpClientFactory = new Mock<IHttpClientFactory>();
             httpClientFactory.Setup(i => i.CreateClient(It.IsAny<string>())).Returns(failedAttempt);
-            var service = new Ipify(config, httpClientFactory.Object, logger);
+            var service = new IpifyService(config, httpClientFactory.Object, logger);
 
             // Act - Get the IP
-            var ip = await service.GetPublicIP();
+            var ip = await service.GetIP();
 
             // Assert
             Assert.Null(ip);

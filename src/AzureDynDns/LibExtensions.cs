@@ -1,12 +1,12 @@
-﻿using AzureDynDns.Models;
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using AzureDynDns.Services;
+using AzureDynDns.Services.AzureDns;
+using AzureDynDns.Services.DynDns;
+using AzureDynDns.Services.Ipify;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AzureDynDns
 {
@@ -27,7 +27,7 @@ namespace AzureDynDns
             services.AddSingleton(ipifyConfig);
 
             // Register the AzureDynDnsConfiguration object
-            AzureDynDnsConfiguration azureDynDnsConfig = new AzureDynDnsConfiguration();
+            DynDnsConfiguration azureDynDnsConfig = new DynDnsConfiguration();
             configuration.Bind("Settings", azureDynDnsConfig);
             services.AddSingleton(azureDynDnsConfig);
 
@@ -35,9 +35,9 @@ namespace AzureDynDns
             services.AddHttpClient();
 
             // Register application services
-            services.AddSingleton<IIpify, Ipify>();
-            services.AddSingleton<IAzureDnsService, AzureDnsService>();
-            services.AddSingleton<IAzureDynDnsService, AzureDynDnsService>();
+            services.AddSingleton<IIpProvider, IpifyService>();
+            services.AddSingleton<IDnsService, AzureDnsService>();
+            services.AddSingleton<IDynDnsService, DynDnsService>();
 
             return services;
         }

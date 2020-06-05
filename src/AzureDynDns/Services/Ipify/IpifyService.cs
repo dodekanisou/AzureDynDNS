@@ -1,20 +1,21 @@
-﻿using AzureDynDns.Models;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace AzureDynDns.Services
+namespace AzureDynDns.Services.Ipify
 {
-    public class Ipify : IIpify
+    /// <summary>
+    /// Provides the public IP of the service through the free ipify service.
+    /// </summary>
+    public class IpifyService : IIpProvider
     {
         private readonly IHttpClientFactory clientFactory;
-        private readonly ILogger<IIpify> logger;
+        private readonly ILogger<IIpProvider> logger;
         private readonly Uri serviceUri;
 
-        public Ipify(IpifyConfiguration config, IHttpClientFactory httpFactory,
-                     ILogger<IIpify> logger)
+        public IpifyService(IpifyConfiguration config, IHttpClientFactory httpFactory,
+                     ILogger<IIpProvider> logger)
         {
             // Use default public service if not specified otherwise
             if (string.IsNullOrWhiteSpace(config.IpifyServiceAddress))
@@ -27,7 +28,7 @@ namespace AzureDynDns.Services
             this.logger = logger;
         }
 
-        public async Task<string> GetPublicIP()
+        public async Task<string> GetIP()
         {
             using (var client = clientFactory.CreateClient())
             {

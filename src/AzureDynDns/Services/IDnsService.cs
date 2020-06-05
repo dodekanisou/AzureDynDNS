@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace AzureDynDns.Services
 {
     /// <summary>
-    /// An Azure DNS client wrapper to expose management operations.
+    /// A service that handles DNS record modifications.
     /// </summary>
-    public interface IAzureDnsService
+    public interface IDnsService
     {
         /// <summary>
         /// Creates or updates an A record to point to the specific IP v4.
