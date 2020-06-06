@@ -26,12 +26,12 @@ jobs:
         # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
         target-runtime: ['linux-arm', 'linux-x64']
     steps:
-    - name: Publish single executable file for  ${{ target-runtime }}
-      run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r ${{ target-runtime }} /p:PublishSingleFile=true
-    - name: Upload artifact for  ${{ target-runtime }}
+    - name: Publish single executable file for  ${{ matrix.target-runtime }}
+      run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r ${{ matrix.target-runtime }} /p:PublishSingleFile=true
+    - name: Upload artifact for  ${{ matrix.target-runtime }}
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name, without .zip extension
-        name: AzureDynDNS-${{ target-runtime }}
+        name: AzureDynDNS-${{ matrix.target-runtime }}
         # Directory containing files to upload
-        path: src/AzureDynDns/bin/Release/netcoreapp3.1/${{ target-runtime }}/publish
+        path: src/AzureDynDns/bin/Release/netcoreapp3.1/${{ matrix.target-runtime }}/publish
