@@ -26,6 +26,7 @@ jobs:
         # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
         target-runtime: ['linux-arm', 'linux-x64']
     steps:
+    - uses: actions/checkout@v2
     - name: Publish single executable file for  ${{ matrix.target-runtime }}
       run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r ${{ matrix.target-runtime }} /p:PublishSingleFile=true
     - name: Upload artifact for  ${{ matrix.target-runtime }}
