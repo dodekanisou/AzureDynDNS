@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 using AzureDynDns.Services;
 using AzureDynDns.Services.AzureDns;
@@ -66,6 +67,14 @@ namespace AzureDynDns
             }
 
             return content;
+        }
+
+        public static string AssemblyDirectory(this Assembly assembly)
+        {
+            string codeBase = assembly.CodeBase;
+            UriBuilder uri = new UriBuilder(codeBase);
+            string path = Uri.UnescapeDataString(uri.Path);
+            return System.IO.Path.GetDirectoryName(path);
         }
     }
 }
