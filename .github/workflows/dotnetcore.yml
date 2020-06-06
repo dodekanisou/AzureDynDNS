@@ -4,9 +4,7 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET Core
@@ -15,12 +13,24 @@ jobs:
         dotnet-version: 3.1.101
     - name: Build with dotnet
       run: dotnet build --configuration Release
-    - name: Publish single executable file
-      run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r linux-arm /p:PublishSingleFile=true
-    - name: Upload artifact
+    - name: Run tests
+      run: dotnet test
+  
+  publish:
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Available .NET Core Runtime IDentifiers (RID)
+        # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
+        target-runtime: ['linux-arm', 'linux-x64']
+    steps:
+    - name: Publish single executable file for  ${{ target-runtime }}
+      run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r ${{ target-runtime }} /p:PublishSingleFile=true
+    - name: Upload artifact for  ${{ target-runtime }}
       uses: actions/upload-artifact@v1.0.0
       with:
         # Artifact name, without .zip extension
-        name: AzureDynDNS
+        name: AzureDynDNS-${{ target-runtime }}
         # Directory containing files to upload
-        path: src/AzureDynDns/bin/Release/netcoreapp3.1/linux-arm/publish
+        path: src/AzureDynDns/bin/Release/netcoreapp3.1/${{ target-runtime }}/publish
