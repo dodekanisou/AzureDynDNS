@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AzureDynDns.Services;
 using AzureDynDns.Services.AzureDns;
 using AzureDynDns.Services.DynDns;
+using AzureDynDns.Services.IpFromArguments;
 using AzureDynDns.Services.Ipify;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,29 +16,43 @@ namespace AzureDynDns
     {
         public static IServiceCollection
         RegisterServices(this IServiceCollection services,
-                         IConfiguration configuration)
+                         IConfiguration configuration,
+                         string[] args)
         {
-            // Register the AzureDnsConfiguration object
-            AzureDnsConfiguration azureDnsConfig = new AzureDnsConfiguration();
-            configuration.Bind("Settings", azureDnsConfig);
-            services.AddSingleton(azureDnsConfig);
-
-            // Register the IpifyConfiguration object
-            IpifyConfiguration ipifyConfig = new IpifyConfiguration();
-            configuration.Bind("Settings", ipifyConfig);
-            services.AddSingleton(ipifyConfig);
-
-            // Register the AzureDynDnsConfiguration object
-            DynDnsConfiguration azureDynDnsConfig = new DynDnsConfiguration();
-            configuration.Bind("Settings", azureDynDnsConfig);
-            services.AddSingleton(azureDynDnsConfig);
-
             // Register the default IHttpClientFactory
             services.AddHttpClient();
 
-            // Register application services
-            services.AddSingleton<IIpProvider, IpifyService>();
+            // Register the AzureDns service
+            AzureDnsConfiguration azureDnsConfig = new AzureDnsConfiguration();
+            configuration.Bind("Settings", azureDnsConfig);
+            services.AddSingleton(azureDnsConfig);
             services.AddSingleton<IDnsService, AzureDnsService>();
+
+            // Register the IP provider
+            switch (configuration["IPSource"])
+            {
+                case "arguments":
+                    // Register the IpFromArguments service
+                    IpFromArgumentsConfiguration ipFromArgumentsConfig = new IpFromArgumentsConfiguration();
+                    configuration.Bind("Settings", ipFromArgumentsConfig);
+                    ipFromArgumentsConfig.Arguments = args;
+                    services.AddSingleton(ipFromArgumentsConfig);
+                    services.AddSingleton<IIpProvider, IpFromArgumentsService>();
+                    break;
+                case "ipify":
+                default:
+                    // Register the Ipify service
+                    IpifyConfiguration ipifyConfig = new IpifyConfiguration();
+                    configuration.Bind("Settings", ipifyConfig);
+                    services.AddSingleton(ipifyConfig);
+                    services.AddSingleton<IIpProvider, IpifyService>();
+                    break;
+            }
+
+            // Register the DynDns main application
+            DynDnsConfiguration azureDynDnsConfig = new DynDnsConfiguration();
+            configuration.Bind("Settings", azureDynDnsConfig);
+            services.AddSingleton(azureDynDnsConfig);
             services.AddSingleton<IDynDnsService, DynDnsService>();
 
             return services;

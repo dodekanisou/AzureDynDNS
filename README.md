@@ -106,6 +106,7 @@ with the settings that you gathered from the guide above:
     "DnsZoneName": "zone.contoso.com",
     "ARecordName": "dynamic",
     "ARecordTTL": 60,
+    "IPSource": "ipify",
     "IpifyServiceAddress": ""
   }
 }

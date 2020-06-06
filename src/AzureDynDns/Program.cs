@@ -9,7 +9,7 @@ namespace AzureDynDns
 {
     public static class Program
     {
-        public static void Main()
+        public static void Main(string[] args)
         {
             var assembly = Assembly.GetEntryAssembly();
 
@@ -24,7 +24,7 @@ namespace AzureDynDns
             var serviceProvider = new ServiceCollection()
                                       .AddLogging()
                                       .AddSingleton<IConfiguration>(config)
-                                      .RegisterServices(config)
+                                      .RegisterServices(config, args)
                                       .AddLogging((builder) =>
                                       {
                                           builder.AddConsole();
