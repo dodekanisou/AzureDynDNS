@@ -5,9 +5,11 @@ An Azure based DynDNS alternative.
 ![Compile AzureDynDNS](https://github.com/dodekanisou/AzureDynDNS/workflows/Compile%20AzureDynDNS/badge.svg)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/dodekanisou/AzureDynDNS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dodekanisou/AzureDynDNS/alerts/)
 
-This .net core 3.1 console application can run both interactively or as a daemon.
+This .net core 3.1 console application can run both interactively or as a
+daemon.
 
-Retrieves the IP from one of the supported IP providers and updates an A record in the Azure DNS service registered in the configuration.
+Retrieves the IP from one of the supported IP providers and updates an A record
+in the Azure DNS service registered in the configuration.
 
 Currently supported IP providers:
 
@@ -21,7 +23,9 @@ Currently supported IP providers:
 Deploy an Azure DNS zone using either the portal or an
 [ARM template](https://github.com/Azure/azure-quickstart-templates/tree/master/101-azure-dns-new-zone).
 
-Provision an Azure Active Directory Application and assign 'DNS Zone Contributor' permissions by following [this guide](docs/create-aad-application.md).
+Provision an Azure Active Directory Application and assign 'DNS Zone
+Contributor' permissions by following
+[this guide](docs/create-aad-application.md).
 
 ### Application installation
 
@@ -45,7 +49,8 @@ Add an `appsettings.json` file next to the executable:
 sudo nano /var/lib/azureddns/appsettings.json
 ```
 
-Your `appsettings.json` file should look like the following (GUIDs are randomly generated in the following example using
+Your `appsettings.json` file should look like the following (GUIDs are randomly
+generated in the following example using
 [this tool](https://www.guidgenerator.com/online-guid-generator.aspx)):
 
 ```json

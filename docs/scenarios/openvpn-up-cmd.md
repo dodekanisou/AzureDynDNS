@@ -1,19 +1,20 @@
 # Use the IP assigned when connecting to OpenVPN
 
-Update the `appsettings.json` with the following settings that you gathered from the installation instructions (note the use of `arguments` as the IP source):
+Update the `appsettings.json` with the following settings that you gathered from
+the installation instructions (note the use of `arguments` as the IP source):
 
 ```json
 {
-   "Settings": {
-           "IPSource": "arguments",
-           "ArgumentIndex": 4
-   }
+  "Settings": {
+    "IPSource": "arguments",
+    "ArgumentIndex": 4
+  }
 }
 ```
 
 Add the following in **OpenVPN client's configuration**:
 
-``` config
+```config
 # Allow scripts
 script-security 2
 # Trigger AzureDynDns during the up event
