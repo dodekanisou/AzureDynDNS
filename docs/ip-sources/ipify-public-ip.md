@@ -1,8 +1,10 @@
 # IP source: Ipify service
 
-Utilizing the [public IP Address API](https://www.ipify.org/) you can set the dns record to the current public IP address.
+Utilizing the [public IP Address API](https://www.ipify.org/) you can set the
+dns record to the current public IP address.
 
-In order to use this source, you need to specify the following parameters in the `appsettings.json` file:
+In order to use this source, you need to specify the following parameters in the
+`appsettings.json` file:
 
 ```json
 {
@@ -13,4 +15,5 @@ In order to use this source, you need to specify the following parameters in the
 }
 ```
 
-If you don't specify a URL in `IpifyServiceAddress`, the https://api.ipify.org url will be used.
+If you don't specify a URL in `IpifyServiceAddress`, the https://api.ipify.org
+url will be used.

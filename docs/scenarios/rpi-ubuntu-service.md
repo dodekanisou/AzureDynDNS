@@ -1,6 +1,7 @@
 # Running on a ubuntu based Raspberry PI as a service
 
-Update the `appsettings.json` with the following settings that you gathered from the installation instructions (note the use of `ipify` as the IP source):
+Update the `appsettings.json` with the following settings that you gathered from
+the installation instructions (note the use of `ipify` as the IP source):
 
 ```json
 {
