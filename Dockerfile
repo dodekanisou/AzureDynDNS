@@ -12,5 +12,5 @@ RUN dotnet publish "AzureDynDns.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=build /app/publish .
-RUN chmod +x /entrypoint.sh
-ENTRYPOINT ["scheduler.sh"]
+RUN chmod +x scheduler.sh
+ENTRYPOINT ["./scheduler.sh"]
