@@ -7,6 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureDynDns", "src\AzureDyn
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9D3CC773-1616-4CCE-8A08-C5507EEAAE28}"
 	ProjectSection(SolutionItems) = preProject
+		Dockerfile = Dockerfile
 		.github\workflows\dotnetcore.yml = .github\workflows\dotnetcore.yml
 		README.md = README.md
 	EndProjectSection
