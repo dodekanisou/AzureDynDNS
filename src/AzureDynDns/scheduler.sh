@@ -1,5 +1,5 @@
 #!/bin/sh
 while :; do 
-   sleep 1h & wait $!;
    dotnet AzureDynDns.dll
+   sleep 1h & wait $!;
 done
