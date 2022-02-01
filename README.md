@@ -6,7 +6,7 @@ An Azure based DynDNS alternative.
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/dodekanisou/AzureDynDNS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dodekanisou/AzureDynDNS/alerts/)
 
 Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .net
-core 3.1 console application retrieves the public IP that the device has. Using
+~~~core 3.1~~ 6.0 console application retrieves the public IP that the device has. Using
 that IP, the daemon updates the A record in the Azure DNS service registered in
 the configuration.
 
@@ -172,3 +172,24 @@ sudo systemctl start azureDynDns.timer
 ```
 
 [More info on how timers works](https://www.certdepot.net/rhel7-use-systemd-timers/).
+
+
+## Docker deploy via IoT Hub
+
+A public docker image of this repo is available at https://hub.docker.com/r/dodekanisou/azuredyndns.
+
+The `appsettings.json` file can be overridden using docker volumes. Upload your json file in the RPI `/etc/iotedge/storage/azuredyndns.appsettings.json` file.
+
+Assuming you have (installed and configured the IoT Edge runtime](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-install-iot-edge) you will need to deploy a module:
+- Name: azuredyndns
+- Image url: dodekanisou/azuredyndns:2022-02-01 (or later)
+- Container create options: Note that we are mounting the appseetings.json file
+  ```json
+  {
+    "HostConfig": {
+      "Binds": [
+        "/etc/iotedge/storage/azuredyndns.appsettings.json:/app/appsettings.json"
+      ]
+    }
+  }
+  ```
