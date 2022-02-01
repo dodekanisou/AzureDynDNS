@@ -17,7 +17,7 @@ namespace AzureDynDns
             IConfiguration config = new ConfigurationBuilder()
                                         .SetBasePath(assembly.AssemblyDirectory())
                                         .AddJsonFile("appsettings.json", true, true)
-                                        .AddUserSecrets(assembly)
+                                        .AddUserSecrets(assembly, true)
                                         .Build();
 
             // Setup our DI
