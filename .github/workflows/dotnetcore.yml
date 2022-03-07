@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
@@ -26,7 +26,7 @@ jobs:
         # https://docs.microsoft.com/en-us/dotnet/core/rid-catalog
         target-runtime: ['linux-arm', 'linux-x64']
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
