@@ -34,7 +34,7 @@ jobs:
     - name: Publish single executable file for  ${{ matrix.target-runtime }}
       run:  dotnet publish src/AzureDynDns/AzureDynDns.csproj -c Release -r ${{ matrix.target-runtime }} /p:PublishSingleFile=true -o publish
     - name: Upload artifact for  ${{ matrix.target-runtime }}
-      uses: actions/upload-artifact@v1.0.0
+      uses: actions/upload-artifact@v3
       with:
         # Artifact name, without .zip extension
         name: AzureDynDNS-${{ matrix.target-runtime }}
