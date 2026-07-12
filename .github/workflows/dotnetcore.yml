@@ -7,6 +7,13 @@ on:
       - master
       - main
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      publish-artifacts:
+        description: Publish runtime artifacts
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   build:
@@ -31,7 +38,7 @@ jobs:
         run: dotnet test --configuration Release --no-build --verbosity minimal
 
   publish:
-    if: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' }}
+    if: ${{ inputs.publish-artifacts && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || github.event_name == 'workflow_call') }}
     needs: [build]
     runs-on: ubuntu-latest
     strategy:
