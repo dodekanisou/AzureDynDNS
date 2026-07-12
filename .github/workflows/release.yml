@@ -45,7 +45,8 @@ jobs:
             ## Source
             See the source for this release at https://github.com/${{ github.repository }}/tree/${{ github.ref_name }}.
 
-            ${{ steps.release_body.outputs.dockerhub_url != '' && format('## Docker Hub\nDocker Hub repository: {0}', steps.release_body.outputs.dockerhub_url) || '' }}
+            ${{ steps.release_body.outputs.dockerhub_url != '' && format('## Docker Hub
+Docker Hub repository: {0}', steps.release_body.outputs.dockerhub_url) || '' }}
 
             ## Assets
             The release assets below contain the published binaries for this tag.
