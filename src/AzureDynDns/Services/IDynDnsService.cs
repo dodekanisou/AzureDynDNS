@@ -7,6 +7,6 @@ namespace AzureDynDns.Services
     /// </summary>
     public interface IDynDnsService
     {
-        Task<string> UpdateDynamicDnsRecord();
+        Task<(string ip, int updatedCount)> UpdateDynamicDnsRecord();
     }
 }

@@ -5,10 +5,7 @@ An Azure based DynDNS alternative.
 ![Compile AzureDynDNS](https://github.com/dodekanisou/AzureDynDNS/workflows/Compile%20AzureDynDNS/badge.svg)
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/dodekanisou/AzureDynDNS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dodekanisou/AzureDynDNS/alerts/)
 
-Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .net 6.0
- ~~(started with core 3.1)~~ console application retrieves the public IP that the device has. Using
-that IP, the daemon updates the A record in the Azure DNS service registered in
-the configuration.
+Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .NET 10 console application retrieves the public IP that the device has. Using that IP, the daemon updates one or more A records in the Azure DNS service registered in the configuration.
 
 ## Setup instructions
 
@@ -62,6 +59,7 @@ generated in the following example using
     "ResourceGroupName": "dyndns-rg",
     "DnsZoneName": "zone.contoso.com",
     "ARecordName": "dynamic",
+    "ARecordNames": ["dynamic", "www"],
     "ARecordTTL": 60,
     "IpifyServiceAddress": ""
   }
@@ -72,8 +70,7 @@ generated in the following example using
 
 Publish the console application.
 
-Zip the contents of `bin\Release\netcoreapp3.1\publish` and transfer the zip
-file in the RPI.
+Publish the app for .NET 10 and zip the contents of the publish output before transferring it to the Raspberry Pi.
 
 Unzip the zip into `/var/lib/azureDynDns`.
 
@@ -105,6 +102,7 @@ with the settings that you gathered from the guide above:
     "ResourceGroupName": "dyndns-rg",
     "DnsZoneName": "zone.contoso.com",
     "ARecordName": "dynamic",
+    "ARecordNames": ["dynamic", "www"],
     "ARecordTTL": 60,
     "IpifyServiceAddress": ""
   }
@@ -177,6 +175,20 @@ sudo systemctl start azureDynDns.timer
 ## Docker deploy via IoT Hub
 
 A public docker image of this repo is available at https://hub.docker.com/r/dodekanisou/azuredyndns.
+
+## Build locally
+
+Run the solution with the .NET 10 SDK:
+
+```bash
+dotnet test AzureDynDns.slnx
+```
+
+If you prefer to target the project directly:
+
+```bash
+dotnet test src/AzureDynDNS.Tests/AzureDynDNS.Tests.csproj
+```
 
 The `appsettings.json` file can be overridden using docker volumes. Upload your json file in the RPI `/etc/iotedge/storage/azuredyndns.appsettings.json` file.
 

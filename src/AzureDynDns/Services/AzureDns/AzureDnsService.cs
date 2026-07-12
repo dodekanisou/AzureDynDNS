@@ -22,13 +22,13 @@ namespace AzureDynDns.Services.AzureDns
         }
 
         /// <summary>
-        /// Creates or updates an A record to point to the specific IP v4.
+        /// Creates or updates A records to point to the specific IP v4.
         /// </summary>
-        /// <param name="aRecordName">The record to update.</param>
+        /// <param name="aRecordNames">The records to update.</param>
         /// <param name="newIp">The IPv4 to set to.</param>
         /// <param name="aRecordTTL">Clients refresh interval in seconds, normally 1 min.</param>
-        /// <returns>The assigned IP to the A record.</returns>
-        public async Task<string> UpdateARecord(string aRecordName, string newIp, int aRecordTTL = 60)
+        /// <returns>The number of records updated successfully.</returns>
+        public async Task<int> UpdateARecords(IEnumerable<string> aRecordNames, string newIp, int aRecordTTL = 60)
         {
             // if TTL zero or less, set to default 60sec.
             if (aRecordTTL <= 0)
@@ -41,33 +41,38 @@ namespace AzureDynDns.Services.AzureDns
                 config.ClientId, config.ClientSecret).ConfigureAwait(false);
             using (var dnsClient = new DnsManagementClient(serviceCreds) { SubscriptionId = config.SubscriptionId })
             {
-                // Create record set parameters
-                var recordSetParams = new RecordSet
+                var updatedCount = 0;
+                foreach (var aRecordName in aRecordNames.Where(name => !string.IsNullOrWhiteSpace(name)))
                 {
-                    TTL = aRecordTTL,
-                };
+                    // Create record set parameters
+                    var recordSetParams = new RecordSet
+                    {
+                        TTL = aRecordTTL,
+                    };
 
-                // Add records to the record set parameter object.
-                // In this case, we'll add a record of type 'A'
-                recordSetParams.ARecords = new List<ARecord>()
-                {
+                    // Add records to the record set parameter object.
+                    // In this case, we'll add a record of type 'A'
+                    recordSetParams.ARecords = new List<ARecord>()
+                    {
                         new ARecord(newIp),
-                };
+                    };
 
-                // Add metadata to the record set.
-                // Similar to Azure Resource Manager tags, this is optional and you can
-                // add multiple metadata name/value pairs
-                recordSetParams.Metadata = new Dictionary<string, string>
-                {
-                    { "last-update", DateTime.Now.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) },
-                };
+                    // Add metadata to the record set.
+                    // Similar to Azure Resource Manager tags, this is optional and you can
+                    // add multiple metadata name/value pairs
+                    recordSetParams.Metadata = new Dictionary<string, string>
+                    {
+                        { "last-update", DateTime.Now.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) },
+                    };
 
-                // Create the actual record set in Azure DNS
-                // Note: no ETAG checks specified, will overwrite existing record set if one exists
-                var recordSet = await dnsClient.RecordSets.CreateOrUpdateAsync(config.ResourceGroupName,
-                    config.DnsZoneName, aRecordName, RecordType.A, recordSetParams).ConfigureAwait(false);
+                    // Create the actual record set in Azure DNS
+                    // Note: no ETAG checks specified, will overwrite existing record set if one exists
+                    await dnsClient.RecordSets.CreateOrUpdateAsync(config.ResourceGroupName,
+                        config.DnsZoneName, aRecordName, RecordType.A, recordSetParams).ConfigureAwait(false);
+                    updatedCount++;
+                }
 
-                return recordSet.ARecords.First().Ipv4Address;
+                return updatedCount;
             }
         }
     }

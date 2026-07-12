@@ -18,11 +18,12 @@ namespace AzureDynDns.Services.DynDns
             this.azureDnsService = azureDnsService;
         }
 
-        public async Task<string> UpdateDynamicDnsRecord()
+        public async Task<(string ip, int updatedCount)> UpdateDynamicDnsRecord()
         {
             var theIp = await ipifyService.GetIP();
-            theIp = await azureDnsService.UpdateARecord(config.ARecordName, theIp, config.ARecordTTL);
-            return theIp;
+            var recordNames = config.GetARecordNames();
+            var updatedCount = await azureDnsService.UpdateARecords(recordNames, theIp, config.ARecordTTL);
+            return (theIp, updatedCount);
         }
     }
 }
