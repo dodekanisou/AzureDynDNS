@@ -3,7 +3,7 @@
 An Azure based DynDNS alternative.
 
 ![Compile AzureDynDNS](https://github.com/dodekanisou/AzureDynDNS/workflows/Compile%20AzureDynDNS/badge.svg)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/dodekanisou/AzureDynDNS.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/dodekanisou/AzureDynDNS/alerts/)
+[![CodeQL workflow](https://github.com/dodekanisou/AzureDynDNS/actions/workflows/codeql.yml/badge.svg)](https://github.com/dodekanisou/AzureDynDNS/actions/workflows/codeql.yml)
 
 Utilizing the [public IP Address API](https://www.ipify.org/) this daemon .NET 10 console application retrieves the public IP that the device has. Using that IP, the daemon updates one or more A records in the Azure DNS service registered in the configuration.
 
