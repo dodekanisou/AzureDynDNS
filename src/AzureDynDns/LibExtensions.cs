@@ -71,10 +71,7 @@ namespace AzureDynDns
 
         public static string AssemblyDirectory(this Assembly assembly)
         {
-            string codeBase = assembly.CodeBase;
-            UriBuilder uri = new UriBuilder(codeBase);
-            string path = Uri.UnescapeDataString(uri.Path);
-            return System.IO.Path.GetDirectoryName(path);
+            return System.IO.Path.GetDirectoryName(assembly.Location);
         }
     }
 }
